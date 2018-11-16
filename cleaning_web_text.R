@@ -1,9 +1,10 @@
 # I copied the text of the website and pasted it into an excel workbook.
 # The text output for both websites needs to be cleaned and variables need to be created. 
 
+library(lubridate)
+library(readxl)
 
 # Importing the pasted website text
-library(readxl)
 npr_text <- read_excel("website_text.xlsx", sheet = "npr", col_names = "webtext")
 nyt_text <- read_excel("website_text.xlsx", sheet = "nyt", col_names = "webtext")
 
@@ -15,7 +16,7 @@ npr_working = npr_text[29:2287,] # getting rid of the header, navigation, footer
 # 1 Thursday, November 15th, 2018                                                                   
 # 2 43419                                                                                           
 # 3 Thursday, November 15th, 2018                                                                   
-# 4 Search teams in California have a grim duty as the death toll in the Camp Fire rises. In Florid~
+# 4 Search teams in California have a grim duty as the death toll in the Camp Fire rises. In F~
 # 5 LISTEN· 13:36QUEUE                                                                              
 # 6 Download                                                                                        
 # 7 Embed
@@ -52,9 +53,9 @@ npr_date = rbind(npr_date, npr_working[c(1067,1074),])
 npr_date = rbind(npr_date, npr_working[seq(1080, 1805,7),])
 npr_date = rbind(npr_date, npr_working[seq(1807, 1916,7),])
 npr_date = rbind(npr_date, npr_working[seq(1918, nrow(npr_working),7),])
-library(lubridate)
 npr_date = as.numeric(unlist(npr_date))
 npr_date = as.Date(npr_date, origin = "1899-12-30")
+npr_date = ymd(npr_date)
 
 
 npr_summary = npr_working[seq(4, 65,7),]
@@ -76,7 +77,7 @@ nyt_working = nyt_text[10:1118,] # getting rid of the header, navigation, footer
 
 
 # 1 A Conversation With a Freshman Democrat                                                          
-# 2 We spoke with Abigail Spanberger, a recently elected congresswoman from Virginia, about her firs~
+# 2 We spoke with Abigail Spanberger, a recently elected congresswoman from Virginia, about~
 # 3 Nov. 15, 2018                                                                                    
  
 # first entry is title
@@ -97,4 +98,8 @@ nyt_date = nyt_working[seq(3, 272,3),]
 nyt_date = rbind(nyt_date, nyt_working[seq(274, 372,4),])
 nyt_date = rbind(nyt_date, nyt_working[373,])
 nyt_date = rbind(nyt_date, nyt_working[seq(377, nrow(nyt_working),4),])
-
+fix = as.numeric(unlist(nyt_date[78:183,]))
+fix = ymd(as.Date(fix, origin = "1899-12-30"))
+nyt_date = unlist(nyt_date)
+nyt_date = mdy(nyt_date)
+nyt_date[78:183] = fix
