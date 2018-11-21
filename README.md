@@ -4,7 +4,7 @@ I listen to two daily news podcasts:
 * [The Daily](https://www.nytimes.com/column/the-daily) from the New York Times
 * [Up First](https://www.npr.org/podcasts/510318/up-first) from NPR
 
-If I listen to both podcasts every day, how often am I hearing the same story from two different sources?  Can I create a model to predict if I will hear repetitive stories? 
+If I listen to both podcasts every day, how often am I hearing the same story from two different sources?  Can I create a model to predict if I will hear a duplicate story that day? 
 
 ## Data
 
